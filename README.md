@@ -1,7 +1,8 @@
 
 # DianeStack 🚀
 
-**DianeStack** is a Dockerized personal profile app built with **React**. This project serves as a practical demonstration of:
+**DianeStack** is a Dockerized personal profile app built with **React**. It demonstrates:
+
 - Frontend development using React.
 - UI/UX design with custom CSS.
 - Docker containerization.
@@ -11,10 +12,33 @@
 
 ## 🌟 Features
 
-- A beautiful landing page introducing “Diane” as a Cloud Security & DevOps Engineer.
-- Navigation options to login and register pages.
-- Stylish UI with CSS enhancements.
+- Beautiful landing page introducing “Diane” as a Cloud Security & DevOps Engineer.
+- Navigation to login and register pages.
+- Stylish UI with custom CSS.
 - Fully containerized with Docker.
+
+---
+
+## 📂 Project Folder Structure
+
+```
+DianeStack/
+├── Dockerfile
+├── .dockerignore
+├── package.json
+├── public/
+│   ├── index.html
+│   └── diane.jpg
+├── src/
+│   ├── index.js
+│   ├── App.js
+│   ├── HomePage.js
+│   ├── LoginPage.js
+│   ├── RegisterPage.js
+│   ├── HomePage.css
+│   ├── Form.css
+└── README.md
+```
 
 ---
 
@@ -33,32 +57,35 @@
 
 ```bash
 npx create-react-app .
-This creates a ready-to-use React app scaffold.
+```
+
+Creates a ready-to-use React app scaffold.
 
 ### 2. Install React Router DOM
-bash
-Copy
-Edit
+
+```bash
 npm install react-router-dom
-Enables routing within the app for /login and /register.
+```
+
+Enables routing within the app for `/login` and `/register`.
 
 ### 3. Create & Style Components
-HomePage.js
-Introduces the developer (Diane) and links to login/register routes.
 
-LoginPage.js & RegisterPage.js
-Simple forms styled in Form.css.
+- **HomePage.js**  
+  Introduces Diane and links to login/register pages.
 
-HomePage.css
-Modern UI style with gradients, shadows, and hover effects.
+- **LoginPage.js & RegisterPage.js**  
+  Simple forms styled in `Form.css`.
 
-Form.css
-Consistent styling for login and register pages.
+- **HomePage.css**  
+  Modern UI styling with gradients, shadows, and hover effects.
 
-### 4. App Routing – App.js
-javascript
-Copy
-Edit
+- **Form.css**  
+  Consistent styling for login and register pages.
+
+### 4. App Routing – `App.js`
+
+```javascript
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
@@ -75,23 +102,32 @@ function App() {
     </BrowserRouter>
   );
 }
+
+export default App;
+```
+
 Handles client-side routing between pages.
 
 ### 5. Static Assets
-Include a profile image in /public/diane.jpg.
 
-React will serve this via <img src="/diane.jpg" />.
+Place the profile image at: `/public/diane.jpg`
+
+Use it in components like:
+
+```jsx
+<img src="/diane.jpg" alt="Diane" />
+```
+
+---
 
 ## 🐳 Dockerization
-Dockerfile
-dockerfile
-Copy
-Edit
+
+### Dockerfile
+
+```dockerfile
 # Step 1: Base image
 FROM node:18-alpine as build
-
 WORKDIR /app
-
 COPY package*.json ./
 RUN npm install
 COPY . .
@@ -99,67 +135,80 @@ RUN npm run build
 
 # Step 2: Serve build with a simple static server
 FROM node:18-alpine
-
 RUN npm install -g serve
 WORKDIR /app
 COPY --from=build /app/build .
-
 EXPOSE 3000
-
 CMD ["serve", "-s", ".", "-l", "3000"]
-🔹 Multi-stage build: Optimized image size
-🔹 Uses serve to host the built static React app
-🔹 Production-ready deployment without NGINX (intentionally simple)
+```
 
-.dockerignore
-dockerignore
-Copy
-Edit
+- 🔹 Multi-stage build: Optimized image size  
+- 🔹 Uses `serve` to host the built React app  
+- 🔹 Production-ready deployment (simple and lightweight)
+
+### .dockerignore
+
+```
 node_modules
 build
 .dockerignore
 Dockerfile
-Ensures unused files don't bloat the container.
+```
 
-### 🧪 Running the App
-Locally without Docker:
-bash
-Copy
-Edit
+Prevents unnecessary files from bloating the container.
+
+---
+
+## 🧪 Running the App
+
+### Locally without Docker
+
+```bash
 npm start
-Runs on http://localhost:3000
+```
 
-### With Docker:
-bash
-Copy
-Edit
+Visit: [http://localhost:3000](http://localhost:3000)
+
+### With Docker
+
+```bash
 docker build -t dianestack .
 docker run -p 3000:3000 dianestack
-Access at http://localhost:3000
+```
 
-### ✅ What This Project Demonstrates
-Skill	Demonstrated By
-React Fundamentals	Routing, Components, Props
-UI/UX Design	Custom CSS, responsive layout
-Docker	Multi-stage builds, optimized image
-Software Engineering Best Practices	Modular code structure, containerization
-Deployment-Readiness	Production-ready static hosting via serve
+Visit: [http://localhost:3000](http://localhost:3000)
 
-### 📸 Screenshots
-View	Description
-HomePage	Welcomes users, shows Diane’s profile, with Login/Register buttons
-Login	Simple styled login form
-Register	Simple styled register form
-Docker Run	Shows app running in container at port 3000
+---
 
-### 📂 Future Enhancements
-🔹 Add form validation
-🔹 Connect forms to a backend API
-🔹 Include real authentication
-🔹 Deploy using cloud platforms (e.g., Azure App Service, GCP Cloud Run)
+## ✅ What This Project Demonstrates
 
-### 🙌 Author
-**Diane Ihezue** Cloud Security & DevOps Engineer | [DianeStack](https://github.com/Dianes-Git)
+| Skill                         | Demonstrated By                             |
+|------------------------------|---------------------------------------------|
+| React Fundamentals           | Routing, Components, Props                  |
+| UI/UX Design                 | Custom CSS, Responsive Layout               |
+| Docker                       | Multi-stage Builds, Optimized Image         |
+| Software Engineering Practices | Modular Code Structure, Containerization  |
+| Deployment Readiness         | Production Hosting with Serve               |
+
+---
+
+## 📸 Screenshots
 
 
 
+---
+
+## 📦 Future Enhancements
+
+- Add form validation
+- Connect forms to a backend API
+- Include real authentication
+- Deploy using cloud platforms (e.g., Azure App Service, GCP Cloud Run)
+
+---
+
+## 🙌 Author
+
+**Diane Ihezue**  
+Cloud Security & DevOps Engineer  
+🔗 [DianeStack GitHub](https://github.com/Dianes-Git)
